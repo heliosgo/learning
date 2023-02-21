@@ -23,7 +23,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_statck() {
+    fn test_stack() {
         let mut stack = Stack::new();
         stack.push(1);
         stack.push(2);

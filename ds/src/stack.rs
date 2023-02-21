@@ -5,10 +5,8 @@ struct Stack<T> {
 }
 
 impl<T> Stack<T> {
-    fn new(size: usize) -> Self {
-        Stack {
-            data: Vec::with_capacity(size),
-        }
+    fn new() -> Self {
+        Stack { data: Vec::new() }
     }
 
     fn push(&mut self, item: T) {
@@ -26,7 +24,7 @@ mod tests {
 
     #[test]
     fn test_statck() {
-        let mut stack = Stack::new(10);
+        let mut stack = Stack::new();
         stack.push(1);
         stack.push(2);
         stack.push(4);

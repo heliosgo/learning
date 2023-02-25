@@ -1,3 +1,4 @@
+mod binary_search;
 mod bubble_sort;
 mod heap_sort;
 mod insertion_sort;

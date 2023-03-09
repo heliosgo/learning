@@ -11,6 +11,13 @@ import (
 )
 
 func main() {
+	release, err := initGoroutinePool()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	defer release()
+
 	r := mux.NewRouter()
 
 	r.HandleFunc("/ws/{room}", func(w http.ResponseWriter, r *http.Request) {
@@ -33,9 +40,9 @@ func main() {
 		}
 		serveWs(hub, w, r)
 	})
-	go http.ListenAndServe(":6060", nil)
+	submitToPool(func() { http.ListenAndServe(":6060", nil) })
 
-	err := http.ListenAndServe(":8080", r)
+	err = http.ListenAndServe(":8080", r)
 	if err != nil {
 		log.Fatalf("ListenAndServe: %v", err)
 	}

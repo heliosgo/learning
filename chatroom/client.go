@@ -35,8 +35,12 @@ func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	client.hub.clients[client] = struct{}{}
 	roomMutex[hub.roomID].Unlock()
 
-	go client.read()
-	go client.write()
+	poolMutex.Lock()
+	if getAvailableWorker() >= 2 {
+		submitToPool(func() { client.read() })
+		submitToPool(func() { client.write() })
+	}
+	poolMutex.Unlock()
 }
 
 type Client struct {

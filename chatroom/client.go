@@ -39,6 +39,9 @@ func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	if getAvailableWorker() >= 2 {
 		submitToPool(func() { client.read() })
 		submitToPool(func() { client.write() })
+	} else {
+		hub.unregister <- client
+		conn.Close()
 	}
 	poolMutex.Unlock()
 }

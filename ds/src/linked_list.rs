@@ -17,86 +17,73 @@ impl LinkedList {
     }
 
     fn get(&self, index: i32) -> Option<i32> {
-        let mut cur = match self.head {
-            Some(ref h) => h,
-            _ => return None,
-        };
-        let mut cur_index = 0;
-        while cur_index < index {
-            if let Some(ref next) = cur.next {
-                cur = next;
-                cur_index += 1;
-            } else {
-                return None;
+        if let Some(ref cur) = self.head {
+            let mut cur = cur;
+            let mut cur_index = 0;
+            while cur_index < index {
+                if let Some(ref next) = cur.next {
+                    cur = next;
+                    cur_index += 1;
+                } else {
+                    return None;
+                }
             }
-        }
 
-        Some(cur.val)
+            return Some(cur.val);
+        }
+        None
     }
 
     fn add_at_head(&mut self, val: i32) {
-        let head = match self.head {
-            Some(ref mut h) => h,
-            _ => {
-                return;
-            }
-        };
-        head.next = Some(Box::new(Node {
-            val,
-            next: head.next.take(),
-        }))
+        if let Some(ref mut head) = self.head {
+            head.next = Some(Box::new(Node {
+                val,
+                next: head.next.take(),
+            }))
+        }
     }
 
     fn add_at_tail(&mut self, val: i32) {
-        let mut cur = match self.head {
-            Some(ref mut h) => h,
-            _ => {
-                return;
+        if let Some(ref mut cur) = self.head {
+            let mut cur = cur;
+            while let Some(ref mut next) = cur.next {
+                cur = next;
             }
-        };
-        while let Some(ref mut next) = cur.next {
-            cur = next;
+            cur.next = Some(Box::new(Node { val, next: None }));
         }
-        cur.next = Some(Box::new(Node { val, next: None }));
     }
 
     fn add_at_index(&mut self, index: i32, val: i32) {
-        let mut cur = match self.head {
-            Some(ref mut h) => h,
-            _ => {
-                return;
+        if let Some(ref mut cur) = self.head {
+            let mut cur = cur;
+            let mut cur_index = 1;
+            while cur_index < index {
+                if let Some(ref mut next) = cur.next {
+                    cur = next;
+                } else {
+                    break;
+                }
+                cur_index += 1;
             }
-        };
-        let mut cur_index = 1;
-        while cur_index < index {
-            if let Some(ref mut next) = cur.next {
-                cur = next;
-            } else {
-                break;
-            }
-            cur_index += 1;
+            cur.next = Some(Box::new(Node {
+                val,
+                next: cur.next.take(),
+            }))
         }
-        cur.next = Some(Box::new(Node {
-            val,
-            next: cur.next.take(),
-        }))
     }
 
     fn delete_at_index(&mut self, index: i32) {
-        let mut cur = match self.head {
-            Some(ref mut h) => h,
-            _ => {
-                return;
+        if let Some(ref mut cur) = self.head {
+            let mut cur = cur;
+            let mut cur_index = 1;
+            while cur_index < index {
+                if let Some(ref mut next) = cur.next {
+                    cur = next;
+                }
+                cur_index += 1;
             }
-        };
-        let mut cur_index = 1;
-        while cur_index < index {
-            if let Some(ref mut next) = cur.next {
-                cur = next;
-            }
-            cur_index += 1;
+            cur.next = cur.next.take().and_then(|a| a.next);
         }
-        cur.next = cur.next.take().and_then(|a| a.next);
     }
 }
 

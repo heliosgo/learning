@@ -96,12 +96,9 @@ func isWin(state [sx][sy]byte, x, y int) bool {
 		for _, d := range v {
 			cx, cy := x, y
 			for {
-				tx, ty := cx+d[0], cy+d[1]
-				if tx < 0 || tx >= sx || ty < 0 || ty >= sy {
-					break
-				}
-				cx, cy = tx, ty
-				if state[cx][cy] != t {
+				cx, cy := cx+d[0], cy+d[1]
+				if cx < 0 || cx >= sx || cy < 0 || cy >= sy ||
+					state[cx][cy] != t {
 					break
 				}
 				count++

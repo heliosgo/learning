@@ -101,11 +101,12 @@ func isWin(state [sx][sy]byte, x, y int) bool {
 					break
 				}
 				cx, cy = tx, ty
-				if state[cx][cy] == t {
-					count++
-					if count >= 5 {
-						return true
-					}
+				if state[cx][cy] != t {
+					break
+				}
+				count++
+				if count >= 5 {
+					return true
 				}
 			}
 		}

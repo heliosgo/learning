@@ -1,6 +1,7 @@
 mod bfs;
 mod binary_search;
 mod bubble_sort;
+mod dfs;
 mod heap_sort;
 mod insertion_sort;
 mod kmp;

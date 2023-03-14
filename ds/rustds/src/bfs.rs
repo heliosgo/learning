@@ -30,26 +30,30 @@ impl TreeNode {
 use std::cell::RefCell;
 use std::rc::Rc;
 
-pub fn level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
-    let mut res: Vec<Vec<i32>> = Vec::new();
-    if let Some(root) = root.clone() {
-        let mut cur: Vec<Rc<RefCell<TreeNode>>> = vec![root];
-        while cur.len() > 0 {
-            let mut next: Vec<Rc<RefCell<TreeNode>>> = Vec::new();
-            let mut vals: Vec<i32> = Vec::new();
-            for node in &cur {
-                vals.push(node.borrow().val);
-                if let Some(left) = node.borrow().left.clone() {
-                    next.push(left);
-                }
-                if let Some(right) = node.borrow().right.clone() {
-                    next.push(right);
-                }
-            }
-            res.push(vals);
-            cur = next;
-        }
-    }
+struct Solution {}
 
-    res
+impl Solution {
+    pub fn level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
+        let mut res: Vec<Vec<i32>> = Vec::new();
+        if let Some(root) = root.clone() {
+            let mut cur: Vec<Rc<RefCell<TreeNode>>> = vec![root];
+            while cur.len() > 0 {
+                let mut next: Vec<Rc<RefCell<TreeNode>>> = Vec::new();
+                let mut vals: Vec<i32> = Vec::new();
+                for node in &cur {
+                    vals.push(node.borrow().val);
+                    if let Some(left) = node.borrow().left.clone() {
+                        next.push(left);
+                    }
+                    if let Some(right) = node.borrow().right.clone() {
+                        next.push(right);
+                    }
+                }
+                res.push(vals);
+                cur = next;
+            }
+        }
+
+        res
+    }
 }

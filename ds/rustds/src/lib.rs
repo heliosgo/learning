@@ -13,3 +13,4 @@ mod quick_sort;
 mod reservoir_sampling;
 mod selection_sort;
 mod stack;
+mod union_find;

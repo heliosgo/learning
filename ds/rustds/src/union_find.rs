@@ -24,7 +24,7 @@ impl UnionFind {
         if root_x == root_y {
             return;
         }
-        self.parent[root_x] = self.parent[root_y];
+        self.parent[root_x] = root_y;
     }
 }
 

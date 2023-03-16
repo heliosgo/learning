@@ -13,7 +13,7 @@ message Response {
 }
 
 message UserInfo {
-  uint64 Id = 1;
+  int64 Id = 1;
   string Username = 2;
   string Password = 3;
   string Phone = 4;
@@ -27,7 +27,7 @@ message LoginReq {
 }
 
 message LoginResp {
-  uint64 Id = 1;
+  int64 Id = 1;
   string Username = 2;
   string Phone = 3;
 }

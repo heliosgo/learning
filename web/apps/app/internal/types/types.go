@@ -5,14 +5,13 @@ type UserInfo struct {
 	Id         uint64 `json:"id"`          // 用户 ID
 	Username   string `json:"username"`    // 用户名
 	Password   string `json:"password"`    // 用户密码 MD5
-	Phone      string `json:"phone"`       // 手机号
 	CreateTime int64  `json:"create_time"` // 创建时间
 	UpdateTime int64  `json:"update_time"` // 更新时间
 }
 
 type LoginReq struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `form:"username"`
+	Password string `form:"password"`
 }
 
 type LoginResp struct {

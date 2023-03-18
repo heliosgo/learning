@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package property;
+
+option go_package="./property";
+
+message UpdateScoreReq {
+  int64 uid = 1;
+  int32 score = 2;
+}
+
+message UpdateScoreRsp {
+  int32 score = 1;
+  int32 level = 2;
+}
+
+message CreateTableReq {
+  int64 uid = 1;
+}
+
+message CreateTableRsp {}
+
+service Property {
+  // 更新积分
+  rpc UpdateScore(UpdateScoreReq) returns (UpdateScoreRsp) {}
+  // 创建表
+  rpc CreateTable(CreateTableReq) returns (CreateTableRsp) {}
+}

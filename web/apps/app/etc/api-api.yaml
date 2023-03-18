@@ -11,3 +11,14 @@ UserRPC:
     Hosts:
       - 127.0.0.1:2379
     Key: user.rpc
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9080
+  Path: /metrics
+
+Telemetry:
+  Name: web
+  Endpoint: http://127.0.0.1:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger

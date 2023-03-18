@@ -1,0 +1,25 @@
+Name: property.rpc
+ListenOn: 0.0.0.0:8081
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: property.rpc
+
+Mysql:
+  DataSource: root:@tcp(127.0.0.1:3306)/property?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Type: node
+    Pass:
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9082
+  Path: /metrics
+
+Telemetry:
+  Name: property
+  Endpoint: http://127.0.0.1:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger

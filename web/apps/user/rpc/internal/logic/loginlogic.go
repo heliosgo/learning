@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 
+	"web/apps/property/rpc/property"
 	"web/apps/user/rpc/internal/svc"
 	"web/apps/user/rpc/model"
 	"web/apps/user/rpc/user"
@@ -93,6 +94,10 @@ func (l *LoginLogic) register(in *user.LoginReq) (*model.User, error) {
 			password,
 		)
 	}
+
+	l.svcCtx.PropertyRPC.CreateTable(l.ctx, &property.CreateTableReq{
+		Uid: id,
+	})
 
 	return &model.User{Id: id, Username: in.Username, Password: password}, nil
 }

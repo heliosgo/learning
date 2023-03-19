@@ -8,6 +8,7 @@ mod kmp;
 mod knuth_shuffle;
 mod linked_list;
 mod merge_sort;
+mod monotone_stack;
 mod queue;
 mod quick_sort;
 mod reservoir_sampling;

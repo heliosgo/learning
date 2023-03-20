@@ -58,17 +58,20 @@ func (m *userScoreModel) UpdateUserScoreSession(
 	data *UserScore,
 ) error {
 	query := fmt.Sprintf(
-		"update %s level, score set score = ?, level = ? where user_id = ? and score = ?",
+		"update %s set score = ?, level = ? where user_id = ? and score = ?",
 		m.table,
 	)
 
-	res, err := session.ExecCtx(ctx, query, data.UserID, oldScore)
+	res, err := session.ExecCtx(ctx, query, data.Score, data.Level, data.UserID, oldScore)
+	if err != nil {
+		return err
+	}
 	row, _ := res.RowsAffected()
 	if row == 0 {
 		return ErrNotFound
 	}
 
-	return err
+	return nil
 }
 
 func (m *userScoreModel) InsertNew(ctx context.Context, uid int64) error {

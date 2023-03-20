@@ -44,10 +44,13 @@ func (m *scoreRecordModel) CreateRecordSession(
 	)
 
 	res, err := session.ExecCtx(ctx, query, data.UserID, data.ChangeScore, data.AfterScore)
+	if err != nil {
+		return err
+	}
 	row, _ := res.RowsAffected()
 	if row == 0 {
 		return ErrNotFound
 	}
 
-	return err
+	return nil
 }

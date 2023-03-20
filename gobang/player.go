@@ -5,17 +5,19 @@ import (
 )
 
 type Player struct {
+	uid   int64
 	name  string
 	table *Table
 	lobby *Lobby
 }
 
 var (
-	players sync.Map
+	players = sync.Map{}
 )
 
-func newPlayer(name string, lobby *Lobby) *Player {
+func newPlayer(uid int64, name string, lobby *Lobby) *Player {
 	return &Player{
+		uid:   uid,
 		name:  name,
 		lobby: lobby,
 	}
@@ -96,7 +98,7 @@ func isWin(state [sx][sy]byte, x, y int) bool {
 		for _, d := range v {
 			cx, cy := x, y
 			for {
-				cx, cy := cx+d[0], cy+d[1]
+				cx, cy = cx+d[0], cy+d[1]
 				if cx < 0 || cx >= sx || cy < 0 || cy >= sy ||
 					state[cx][cy] != t {
 					break

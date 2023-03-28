@@ -1,0 +1,31 @@
+Name: task.rpc
+ListenOn: 0.0.0.0:8082
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: task.rpc
+
+Mysql:
+  DataSource: root:@tcp(127.0.0.1:3306)/user?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Type: node
+    Pass:
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9083
+  Path: /metrics
+
+Telemetry:
+  Name: task
+  Endpoint: http://127.0.0.1:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
+
+UserRPC:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc

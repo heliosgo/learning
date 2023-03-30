@@ -4,6 +4,9 @@
 package server
 
 import (
+	"context"
+
+	"web/apps/task/rpc/internal/logic"
 	"web/apps/task/rpc/internal/svc"
 	"web/apps/task/rpc/task"
 )
@@ -17,4 +20,9 @@ func NewTaskServer(svcCtx *svc.ServiceContext) *TaskServer {
 	return &TaskServer{
 		svcCtx: svcCtx,
 	}
+}
+
+func (s *TaskServer) UpdateProgress(ctx context.Context, in *task.UpdateProgressReq) (*task.UpdateProgressRsp, error) {
+	l := logic.NewUpdateProgressLogic(ctx, s.svcCtx)
+	return l.UpdateProgress(in)
 }

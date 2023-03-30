@@ -13,7 +13,11 @@ import (
 )
 
 type (
+	UpdateProgressReq = task.UpdateProgressReq
+	UpdateProgressRsp = task.UpdateProgressRsp
+
 	Task interface {
+		UpdateProgress(ctx context.Context, in *UpdateProgressReq, opts ...grpc.CallOption) (*UpdateProgressRsp, error)
 	}
 
 	defaultTask struct {
@@ -25,4 +29,9 @@ func NewTask(cli zrpc.Client) Task {
 	return &defaultTask{
 		cli: cli,
 	}
+}
+
+func (m *defaultTask) UpdateProgress(ctx context.Context, in *UpdateProgressReq, opts ...grpc.CallOption) (*UpdateProgressRsp, error) {
+	client := task.NewTaskClient(m.cli.Conn())
+	return client.UpdateProgress(ctx, in, opts...)
 }

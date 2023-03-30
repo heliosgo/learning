@@ -4,5 +4,15 @@ package task;
 
 option go_package="./task";
 
-service Task {}
+service Task {
+  rpc UpdateProgress(UpdateProgressReq) returns (UpdateProgressRsp) {}
+}
+
+message UpdateProgressReq {
+  int32 event = 1;
+  int64 uid = 2;
+  int64 progress = 3;
+}
+
+message UpdateProgressRsp {}
 

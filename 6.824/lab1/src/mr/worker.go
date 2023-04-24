@@ -46,6 +46,7 @@ func Worker(mapf func(string, string) []KeyValue,
 		fmt.Println(reply)
 		if reply.NewTask.Type == "" {
 			log.Printf("worker: %d done", id)
+			break
 		}
 		if reply.NewTask.Type == Map {
 			output = mapFunc(reply.NewTask, reply.NReduce, mapf)

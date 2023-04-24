@@ -131,10 +131,13 @@ func (c *Coordinator) getNewTaskAfterMap(worker, lastTaskID int, output []string
 func (c *Coordinator) getNewTaskAfterReduce(worker, lastTaskID int, output []string) (Task, bool) {
 	c.mu.Lock()
 	if c.tasks[lastTaskID].WorkerID == worker {
-		delete(c.tasks, lastTaskID)
 		for _, f := range output {
 			os.Rename(f, c.getReduceOutput(lastTaskID))
 		}
+		for _, f := range c.tasks[lastTaskID].Input {
+			os.Remove(f)
+		}
+		delete(c.tasks, lastTaskID)
 		if len(c.tasks) == 0 {
 			c.stage = Done
 			close(c.available)
@@ -154,7 +157,7 @@ func (c *Coordinator) getNewTaskAfterReduce(worker, lastTaskID int, output []str
 	task.WorkerID = worker
 	c.mu.Unlock()
 
-	return Task{}, false
+	return *task, true
 }
 
 func (c *Coordinator) getMapOutput(id, r int) string {

@@ -201,11 +201,9 @@ func (c *Coordinator) check() {
 // main/mrcoordinator.go calls Done() periodically to find out
 // if the entire job has finished.
 func (c *Coordinator) Done() bool {
-	ret := false
-
 	// Your code here.
 
-	return ret
+	return c.stage == Done
 }
 
 // create a Coordinator.
